@@ -13,6 +13,28 @@ import { __ } from '@wordpress/i18n';
  */
 import { useBlockProps } from '@wordpress/block-editor';
 
+const pluralOrSingularUnit = ( props, index, unit ) => {
+	let plural = props.attributes.ingredients[ index ].amount > 1;
+
+	if ( ! plural ) {
+		return unit;
+	}
+
+	switch ( unit ) {
+		case 'nypa':
+			return 'nypor';
+		
+		case 'matsked':
+			return 'matskedar';
+
+		case 'tesked':
+			return 'teskedar';
+
+		default:
+			return unit;
+	}
+};
+
 /**
  * The save function defines the way in which the different attributes should
  * be combined into the final markup, which is then serialized by the block
@@ -22,13 +44,21 @@ import { useBlockProps } from '@wordpress/block-editor';
  *
  * @return {WPElement} Element to render.
  */
-export function ingredients() {
-	return (
-		<p { ...useBlockProps.save() }>
-			{ __(
-				'Ingredients – hello from the saved content!',
-				'mf-food-blog'
-			) }
-		</p>
-	);
+export function ingredients( props ) {
+	// return (
+	// 	<p { ...useBlockProps.save() }>
+	// 		{ __(
+	// 			'Ingredients – hello from the saved content!',
+	// 			'mf-food-blog'
+	// 		) }
+	// 	</p>
+	// );
+
+	const ingredientFields = props.attributes.ingredients.map( ( ingredient, index ) => {
+		return <li>
+			{ ingredient.amount } { pluralOrSingularUnit( props, index, ingredient.unit ) } { ingredient.name }{ ingredient.extra }
+		</li>;
+	} );
+
+	return <ul { ...useBlockProps.save() }>{ ingredientFields }</ul>;
 }

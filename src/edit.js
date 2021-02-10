@@ -115,44 +115,50 @@ export function ingredients( props ) {
 	if ( props.attributes.ingredients.length ) {
 		ingredientFields = props.attributes.ingredients.map( ( ingredient, index ) => {
 			return [
-				<div class="mfrb-ingredient">
-					<NumberControl
-						className="mfrb-ingredient-attr mfrb-ingredient-amount"
-						placeholder="1"
-						value={ props.attributes.ingredients[ index ].amount }
-						min="0"
-						onChange={ ( amount, e ) => handleIngredientChange( 'amount', amount, index, e ) }
-						autoFocus={ true }
-					/>
-					<SelectControl
-						className="mfrb-ingredient-attr mfrb-ingredient-unit"
-						value={ props.attributes.ingredients[ index ].unit }
-						options={
-							units.map( unit => {
-								return {
-									label: pluralOrSingularUnit( props, index, unit.label ),
-									value: unit.value
-								}
-							} )
-						}
-						onChange={ ( unit, e ) => handleIngredientChange( 'unit', unit, index, e ) }
-					/>
-					<InputControl
-						className="mfrb-ingredient-attr mfrb-ingredient-name"
-						placeholder="Ingredient"
-						value={ props.attributes.ingredients[ index ].name }
-						onChange={ ( name, e ) => handleIngredientChange( 'name', name, index, e ) }
-						isPressEnterToChange={ true }
-					/>
-					<InputControl
-						className="mfrb-ingredient-attr mfrb-ingredient-extra"
-						placeholder="Extra"
-						value={ props.attributes.ingredients[ index ].extra }
-						onChange={ ( extra, e ) => handleIngredientChange( 'extra', extra, index, e ) }
-						isPressEnterToChange={ true }
-					/>
+				<div class="mffb-ingredient">
+					<div class="mffb-ingredient-attr mffb-ingredient-amount">
+						<NumberControl
+							placeholder="1"
+							value={ props.attributes.ingredients[ index ].amount }
+							min="0"
+							onChange={ ( amount, e ) => handleIngredientChange( 'amount', amount, index, e ) }
+							autoFocus={ true }
+						/>
+					</div>
+					<div class="mffb-ingredient-attr mffb-ingredient-unit">
+						<SelectControl
+							value={ props.attributes.ingredients[ index ].unit }
+							options={
+								units.map( unit => {
+									return {
+										label: pluralOrSingularUnit( props, index, unit.label ),
+										value: unit.value
+									}
+								} )
+							}
+							onChange={ ( unit, e ) => handleIngredientChange( 'unit', unit, index, e ) }
+						/>
+					</div>
+					<div class="mffb-ingredient-attr mffb-ingredient-name">
+						<InputControl
+							className="mffb-ingredient-attr mffb-ingredient-name"
+							placeholder="Ingredient"
+							value={ props.attributes.ingredients[ index ].name }
+							onChange={ ( name, e ) => handleIngredientChange( 'name', name, index, e ) }
+							isPressEnterToChange={ true }
+						/>
+					</div>
+					<div class="mffb-ingredient-attr mffb-ingredient-extra">
+						<InputControl
+							className="mffb-ingredient-attr mffb-ingredient-extra"
+							placeholder="Extra"
+							value={ props.attributes.ingredients[ index ].extra }
+							onChange={ ( extra, e ) => handleIngredientChange( 'extra', extra, index, e ) }
+							isPressEnterToChange={ true }
+						/>
+					</div>
 					<IconButton
-						className="mfrb-remove-ingredient"
+						className="mffb-remove-ingredient"
 						icon="no-alt"
 						label="Delete ingredient"
 						onClick={ () => handleRemoveIngredient( index ) }

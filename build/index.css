@@ -3,8 +3,18 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
-.wp-block-finell-ingredients {
-  border: 1px dotted #eee;
+.wp-block-finell-ingredients .mffb-ingredient {
+  display: flex;
+}
+.wp-block-finell-ingredients .mffb-ingredient .mffb-ingredient-attr {
+  flex: 1;
+  margin-right: 4px;
+}
+.wp-block-finell-ingredients .mffb-ingredient .mffb-ingredient-name {
+  flex-grow: 2;
+}
+.wp-block-finell-ingredients .mffb-ingredient .mffb-ingredient-extra {
+  flex-grow: 2;
 }
 
 /*# sourceMappingURL=index.css.map*/

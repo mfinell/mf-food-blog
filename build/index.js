@@ -445,9 +445,10 @@ function ingredients(props) {
   if (props.attributes.ingredients.length) {
     ingredientFields = props.attributes.ingredients.map(function (ingredient, index) {
       return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-        class: "mfrb-ingredient"
+        class: "mffb-ingredient"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "mffb-ingredient-attr mffb-ingredient-amount"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["__experimentalNumberControl"], {
-        className: "mfrb-ingredient-attr mfrb-ingredient-amount",
         placeholder: "1",
         value: props.attributes.ingredients[index].amount,
         min: "0",
@@ -455,8 +456,9 @@ function ingredients(props) {
           return handleIngredientChange('amount', amount, index, e);
         },
         autoFocus: true
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["SelectControl"], {
-        className: "mfrb-ingredient-attr mfrb-ingredient-unit",
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "mffb-ingredient-attr mffb-ingredient-unit"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["SelectControl"], {
         value: props.attributes.ingredients[index].unit,
         options: units.map(function (unit) {
           return {
@@ -467,24 +469,28 @@ function ingredients(props) {
         onChange: function onChange(unit, e) {
           return handleIngredientChange('unit', unit, index, e);
         }
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["__experimentalInputControl"], {
-        className: "mfrb-ingredient-attr mfrb-ingredient-name",
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "mffb-ingredient-attr mffb-ingredient-name"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["__experimentalInputControl"], {
+        className: "mffb-ingredient-attr mffb-ingredient-name",
         placeholder: "Ingredient",
         value: props.attributes.ingredients[index].name,
         onChange: function onChange(name, e) {
           return handleIngredientChange('name', name, index, e);
         },
         isPressEnterToChange: true
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["__experimentalInputControl"], {
-        className: "mfrb-ingredient-attr mfrb-ingredient-extra",
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "mffb-ingredient-attr mffb-ingredient-extra"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["__experimentalInputControl"], {
+        className: "mffb-ingredient-attr mffb-ingredient-extra",
         placeholder: "Extra",
         value: props.attributes.ingredients[index].extra,
         onChange: function onChange(extra, e) {
           return handleIngredientChange('extra', extra, index, e);
         },
         isPressEnterToChange: true
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["IconButton"], {
-        className: "mfrb-remove-ingredient",
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["IconButton"], {
+        className: "mffb-remove-ingredient",
         icon: "no-alt",
         label: "Delete ingredient",
         onClick: function onClick() {
@@ -618,6 +624,28 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
+
+var pluralOrSingularUnit = function pluralOrSingularUnit(props, index, unit) {
+  var plural = props.attributes.ingredients[index].amount > 1;
+
+  if (!plural) {
+    return unit;
+  }
+
+  switch (unit) {
+    case 'nypa':
+      return 'nypor';
+
+    case 'matsked':
+      return 'matskedar';
+
+    case 'tesked':
+      return 'teskedar';
+
+    default:
+      return unit;
+  }
+};
 /**
  * The save function defines the way in which the different attributes should
  * be combined into the final markup, which is then serialized by the block
@@ -628,8 +656,20 @@ __webpack_require__.r(__webpack_exports__);
  * @return {WPElement} Element to render.
  */
 
-function ingredients() {
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["useBlockProps"].save(), Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Ingredients – hello from the saved content!', 'mf-food-blog'));
+
+function ingredients(props) {
+  // return (
+  // 	<p { ...useBlockProps.save() }>
+  // 		{ __(
+  // 			'Ingredients – hello from the saved content!',
+  // 			'mf-food-blog'
+  // 		) }
+  // 	</p>
+  // );
+  var ingredientFields = props.attributes.ingredients.map(function (ingredient, index) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("li", null, ingredient.amount, " ", pluralOrSingularUnit(props, index, ingredient.unit), " ", ingredient.name, ingredient.extra);
+  });
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("ul", _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["useBlockProps"].save(), ingredientFields);
 }
 
 /***/ }),

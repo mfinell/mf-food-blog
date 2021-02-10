@@ -5,5 +5,22 @@
  */
 
 .wp-block-finell-ingredients {
-	border: 1px dotted #eee;
+	.mffb-ingredient {
+		display: flex;
+
+		.mffb-ingredient-attr {
+			flex: 1;
+			margin-right: 4px;
+		}
+
+		.mffb-ingredient-name {
+			flex-grow: 2;
+		}
+
+		.mffb-ingredient-extra {
+			flex-grow: 2;
+		}
+	}
 }
+
+
