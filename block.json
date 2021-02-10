@@ -1,0 +1,15 @@
+{
+	"apiVersion": 2,
+	"name": "finell/ingredients",
+	"title": "Ingredients",
+	"category": "text",
+	"icon": "carrot",
+	"description": "Block used to list ingredients",
+	"textdomain": "mf-food-blog",
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}
